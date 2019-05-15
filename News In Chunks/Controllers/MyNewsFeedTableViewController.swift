@@ -9,16 +9,17 @@
 import UIKit
 
 class MyNewsFeedTableViewController: UITableViewController {
-    var articles: [Article] = Article.fetchBookmarked()
+    // The second array represents another set of articles
+    // TODO: create a func that passes an article from one ViewController's array to the other
     
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        return MyNewsFeed.articles.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
-        let article = articles[indexPath.row]
+        let article = MyNewsFeed.articles[indexPath.row]
         
         cell.article = article
         return cell
@@ -38,7 +39,7 @@ class MyNewsFeedTableViewController: UITableViewController {
         
         // Set ArticleViewController's article to the one that was tapped
         let articleVC: ArticleViewController! = segue.destination as? ArticleViewController
-        articleVC.article = articles[index!]
+        articleVC.article = MyNewsFeed.articles[index!]
     }
     
     // MARK: - viewDidLoad()
@@ -46,4 +47,27 @@ class MyNewsFeedTableViewController: UITableViewController {
         // set gradient background
         tableView.backgroundView = UIImageView(image: UIImage(named: "ViewControllerBackground.png"))
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("hello world")
+        self.tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        print("gaybalsl in butthole")
+        
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            print("Deleted")
+            MyNewsFeed.articles.remove(at: indexPath.row)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.endUpdates()
+        }
+    }
+    
 }

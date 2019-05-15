@@ -9,17 +9,16 @@
 import UIKit
 
 class ArticlesTableViewController: UITableViewController {
-    var articles: [Article] = []
 
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        return AllArticles.articles.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
-        let article = articles[indexPath.row]
-        cell.thumbnailImageView.downloadImage(from: self.articles[indexPath.item].thumbnailFileName)
+        let article = AllArticles.articles[indexPath.row]
+        cell.thumbnailImageView.downloadImage(from: AllArticles.articles[indexPath.item].thumbnailFileName)
         cell.article = article
         return cell
     }
@@ -38,7 +37,7 @@ class ArticlesTableViewController: UITableViewController {
 
         // Set ArticleViewController's article to the one that was tapped
         let articleVC: ArticleViewController! = segue.destination as? ArticleViewController
-        articleVC.article = articles[index!]
+        articleVC.article = AllArticles.articles[index!]
     }
     
     // MARK: - viewDidLoad()
@@ -46,10 +45,16 @@ class ArticlesTableViewController: UITableViewController {
         // set gradient background
         tableView.backgroundView = UIImageView(image: UIImage(named: "ViewControllerBackground.png"))
         fetchArticles()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        
+        tableView.refreshControl = refreshControl
     }
     
     func fetchArticles(){
         let urlRequest = URLRequest(url: URL(string: "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+        
         
         let task = URLSession.shared.dataTask(with: urlRequest) { (data,response,error) in
             
@@ -58,16 +63,10 @@ class ArticlesTableViewController: UITableViewController {
                 return
             }
             
-            self.articles = [Article]()
+            AllArticles.articles = [Article]()
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : AnyObject]
-                
-//                let articleName: String
-//                let articleDescription: String
-//                let thumbnailFileName: String
-//                let articleText: String
-//                let bookmarked: Bool
-                
+                                
                 if let articlesFromJson = json["articles"] as? [[String : AnyObject]] {
                     for articleFromJson in articlesFromJson {
                         var article = Article(articleName: "", articleDescription: "", thumbnailFileName: "", articleText: "", bookmarked: false)
@@ -79,7 +78,7 @@ class ArticlesTableViewController: UITableViewController {
                             article.thumbnailFileName = thumbnailFileName
                             article.articleText = articleText
                         }
-                        self.articles.append(article)
+                        AllArticles.articles.append(article)
                         print(article)
                     }
                 }
@@ -103,6 +102,12 @@ class ArticlesTableViewController: UITableViewController {
 extension UIImageView {
     
     func downloadImage(from url: String) {
+        print("URL: " + url)
+        
+        if url.count == 0 {
+            return
+        }
+        
         let urlRequest = URLRequest(url: URL(string: url)!)
         
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in

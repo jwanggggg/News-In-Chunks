@@ -30,9 +30,6 @@
                                             <rect key="frame" x="26" y="20" width="362" height="361"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmark-unselected" highlightedImage="bookmark-selected" translatesAutoresizingMaskIntoConstraints="NO" id="lSi-ZE-5NN">
-                                            <rect key="frame" x="332" y="313" width="40" height="35"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="bottomLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Article Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVm-lc-pwa">
                                             <rect key="frame" x="39" y="297" width="276" height="43"/>
                                             <constraints>
@@ -60,6 +57,15 @@
                                                 <constraint firstAttribute="width" constant="362" id="tBm-S6-FZl"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6k-Hd-ZgS">
+                                            <rect key="frame" x="323" y="336" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="bookmark:" destination="Kfu-0K-LS9" eventType="touchUpInside" id="0P3-aY-6eJ"/>
+                                                <action selector="bookmark:" destination="BaG-gn-g3f" eventType="touchUpInside" id="zBr-JD-Y9j"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -68,8 +74,6 @@
                                         <constraint firstItem="Ial-fA-k2c" firstAttribute="top" secondItem="MT3-Ig-jSY" secondAttribute="top" constant="20" id="UQ9-2M-uZe"/>
                                         <constraint firstItem="tVm-lc-pwa" firstAttribute="top" secondItem="Ial-fA-k2c" secondAttribute="bottom" constant="8" id="ebY-P8-5lr"/>
                                         <constraint firstItem="yR2-4W-AOR" firstAttribute="leading" secondItem="MT3-Ig-jSY" secondAttribute="leadingMargin" constant="19" id="hfB-sE-lrv"/>
-                                        <constraint firstItem="lSi-ZE-5NN" firstAttribute="top" secondItem="Ial-fA-k2c" secondAttribute="bottom" constant="24" id="niH-Ug-UlZ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="lSi-ZE-5NN" secondAttribute="trailing" constant="22" id="wPb-1o-bBq"/>
                                         <constraint firstItem="Ial-fA-k2c" firstAttribute="leading" secondItem="MT3-Ig-jSY" secondAttribute="leading" constant="26" id="zKu-eu-SlA"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -78,7 +82,6 @@
                                     <outlet property="ThumbnailImageView" destination="Ial-fA-k2c" id="5ww-4x-UIi"/>
                                     <outlet property="articleDescription" destination="yR2-4W-AOR" id="z1h-n7-P8u"/>
                                     <outlet property="articleTitle" destination="tVm-lc-pwa" id="JIw-0g-ehl"/>
-                                    <outlet property="bookmarked" destination="lSi-ZE-5NN" id="Cax-6v-PrP"/>
                                     <segue destination="MtU-iu-hBM" kind="show" identifier="viewArticle" id="eA1-Af-e8F"/>
                                 </connections>
                             </tableViewCell>
@@ -91,6 +94,7 @@
                     <navigationItem key="navigationItem" title="NEWS IN CHUNKS" id="WQh-r1-Jqq"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVV-cr-x6Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Kfu-0K-LS9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1638" y="-244"/>
         </scene>
@@ -217,9 +221,6 @@
                                             <rect key="frame" x="26" y="20" width="362" height="361"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmark-unselected" highlightedImage="bookmark-selected" translatesAutoresizingMaskIntoConstraints="NO" id="gC1-1j-fbP">
-                                            <rect key="frame" x="332" y="313" width="40" height="35"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="bottomLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Article Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6o5-KM-oEY">
                                             <rect key="frame" x="39" y="297" width="276" height="43"/>
                                             <constraints>
@@ -247,15 +248,26 @@
                                                 <constraint firstAttribute="height" constant="269" id="UZ8-bV-sbv"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgX-8o-zwT">
+                                            <rect key="frame" x="323" y="336" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAi-6H-wKv">
+                                            <rect key="frame" x="323" y="336" width="46" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="unBookmark:" destination="ucz-9c-vnY" eventType="touchUpInside" id="fOQ-8j-cIz"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="6o5-KM-oEY" firstAttribute="leading" secondItem="p40-4G-EfF" secondAttribute="leadingMargin" constant="19" id="1kA-ym-COP"/>
                                         <constraint firstItem="DFO-F2-iTc" firstAttribute="leading" secondItem="p40-4G-EfF" secondAttribute="leading" constant="26" id="6sN-Oq-8yJ"/>
-                                        <constraint firstItem="gC1-1j-fbP" firstAttribute="top" secondItem="DFO-F2-iTc" secondAttribute="bottom" constant="24" id="Wic-0z-RAm"/>
                                         <constraint firstItem="6o5-KM-oEY" firstAttribute="top" secondItem="DFO-F2-iTc" secondAttribute="bottom" constant="8" id="XEy-ek-n2Y"/>
                                         <constraint firstItem="Jia-5Y-JPi" firstAttribute="top" secondItem="6o5-KM-oEY" secondAttribute="bottom" constant="8" id="YYI-DG-1Wg"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="gC1-1j-fbP" secondAttribute="trailing" constant="22" id="biO-zw-PlB"/>
                                         <constraint firstItem="DFO-F2-iTc" firstAttribute="top" secondItem="p40-4G-EfF" secondAttribute="top" constant="20" id="nmy-zC-VEN"/>
                                         <constraint firstItem="Jia-5Y-JPi" firstAttribute="leading" secondItem="p40-4G-EfF" secondAttribute="leadingMargin" constant="19" id="vIh-ah-7Fm"/>
                                     </constraints>
@@ -265,7 +277,6 @@
                                     <outlet property="ThumbnailImageView" destination="DFO-F2-iTc" id="voF-v6-91e"/>
                                     <outlet property="articleDescription" destination="Jia-5Y-JPi" id="Zy3-NK-4bh"/>
                                     <outlet property="articleTitle" destination="6o5-KM-oEY" id="1Nj-Vu-5yl"/>
-                                    <outlet property="bookmarked" destination="gC1-1j-fbP" id="mbQ-bK-Y84"/>
                                     <segue destination="MtU-iu-hBM" kind="show" id="LKt-kD-fZq"/>
                                 </connections>
                             </tableViewCell>
@@ -356,11 +367,9 @@
         <image name="a1" width="1600" height="973"/>
         <image name="all-articles-icon" width="18" height="22"/>
         <image name="background-1" width="692" height="820"/>
-        <image name="bookmark-selected" width="40" height="35"/>
-        <image name="bookmark-unselected" width="40" height="35"/>
         <image name="my-news-feed-icon" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eA1-Af-e8F"/>
+        <segue reference="LKt-kD-fZq"/>
     </inferredMetricsTieBreakers>
 </document>

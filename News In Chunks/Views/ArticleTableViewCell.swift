@@ -15,6 +15,18 @@ class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var articleDescription: UILabel!
     @IBOutlet weak var bookmarked: UIImageView!
     
+    @IBAction func bookmark(_ sender: UIButton) {
+        MyNewsFeed.articles.append(article)
+    }
+    
+    @IBAction func unBookmark(_ sender: UIButton) {
+//        if let index = MyNewsFeed.articles.firstIndex(where: {$0.articleName == article.articleName}) {
+//            MyNewsFeed.articles.remove(at: index)
+//        }
+        
+        
+    }
+    
     var article: Article! {
         didSet {
             updateUI()
@@ -26,16 +38,11 @@ class ArticleTableViewCell: UITableViewCell {
         thumbnailImageView.layer.cornerRadius = 14.0
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.zPosition = 1
-        
+
         articleTitle.text = article.articleName
         articleTitle.adjustsFontSizeToFitWidth = true
 
         articleDescription.text = article.articleDescription
-        
-        if article.bookmarked {
-            bookmarked.isHighlighted = true
-        } else {
-            bookmarked.isHighlighted = false
-        }
+
     }
 }
