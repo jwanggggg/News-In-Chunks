@@ -10,7 +10,7 @@ import Foundation
 
 struct Sections {
     
-    static var sections = ["Technology", "Business", "Sports"]
+    static var sections = ["Technology", "Business", "Sports", "Entertainment", "Health", "Science"]
     static var sectionSelected = [[IndexPath.init(row:0, section:0)]]
     
 }

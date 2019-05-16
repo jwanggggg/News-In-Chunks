@@ -71,22 +71,38 @@ class ArticlesTableViewController: UITableViewController {
         tableView.refreshControl = refresher
     }
     
-    func fetchArticles(){
-        print("Using: ")
-        print(Sections.sectionSelected)
+    func fetchArticles() {
+//        ["Technology", "Business", "Sports", "Entertainment", "Health", "Science"]
         
         var urlRequest = URLRequest(url: URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
         
         switch (Sections.sectionSelected[0][0][1]) {
+            // Tech
             case 0:
                 urlRequest = URLRequest(url: URL(string: "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
                 break
+            // Business
             case 1:
                 urlRequest = URLRequest(url: URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
                 break
-            default:
+            // Sports
+            case 2:
                 urlRequest = URLRequest(url:
                     URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+                break
+            // Entertainment
+            case 3:
+                urlRequest = URLRequest(url:
+                    URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=entertainment&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+                break
+            // Health
+            case 4:
+                urlRequest = URLRequest(url:
+                    URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+                break
+            default:
+                urlRequest = URLRequest(url:
+                    URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=science&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
                 break
         }
         
@@ -108,7 +124,6 @@ class ArticlesTableViewController: UITableViewController {
                     if self.seenArticles.count >= articlesFromJson.count - 7 {
                         self.seenArticles.removeAll()
                     }
-                    
                     
                     for articleFromJson in articlesFromJson {
                         var article = Article(articleName: "", articleDescription: "", thumbnailFileName: "", articleText: "", bookmarked: false)
@@ -151,9 +166,6 @@ class ArticlesTableViewController: UITableViewController {
 extension UIImageView {
     
     func downloadImage(from url: String) {
-//        if url.count == 0 {
-//            return
-//        }
         
         let urlRequest = URLRequest(url: URL(string: url)!)
         
