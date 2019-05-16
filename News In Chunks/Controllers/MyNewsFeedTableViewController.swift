@@ -60,8 +60,6 @@ class MyNewsFeedTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        print("gaybalsl in butthole")
-        
         if editingStyle == UITableViewCell.EditingStyle.delete {
             print("Deleted")
             MyNewsFeed.articles.remove(at: indexPath.row)

@@ -8,11 +8,16 @@
 
 import Foundation
 
-struct Article {
+struct Article: Equatable {
+    
     var articleName: String
     var articleDescription: String
     var thumbnailFileName: String
     var articleText: String
     var bookmarked: Bool
+    
+    static func ==(lhs: Article, rhs: Article) -> Bool {
+        return lhs.articleName == rhs.articleName && lhs.articleDescription == lhs.articleDescription
+    }
     
 }
