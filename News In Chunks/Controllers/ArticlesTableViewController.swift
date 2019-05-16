@@ -14,14 +14,16 @@ class ArticlesTableViewController: UITableViewController {
     
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return AllArticles.articles.count
+        return AllArticles.articles?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
-        let article = AllArticles.articles[indexPath.row]
-        cell.thumbnailImageView.downloadImage(from: AllArticles.articles[indexPath.item].thumbnailFileName)
+        let article = AllArticles.articles?[indexPath.row]
+        
+        cell.thumbnailImageView.downloadImage(from: (AllArticles.articles?[indexPath.item].thumbnailFileName)!)
         cell.article = article
+        
         return cell
     }
     
@@ -39,7 +41,7 @@ class ArticlesTableViewController: UITableViewController {
 
         // Set ArticleViewController's article to the one that was tapped
         let articleVC: ArticleViewController! = segue.destination as? ArticleViewController
-        articleVC.article = AllArticles.articles[index!]
+        articleVC.article = AllArticles.articles?[index!]
     }
     
     lazy var refresher: UIRefreshControl = {
@@ -119,12 +121,12 @@ class ArticlesTableViewController: UITableViewController {
                             article.articleText = articleText
                         }
                         // Record only if it has been seen
-                        if !self.seenArticles.contains(article.articleName) {
+                        if !self.seenArticles.contains(article.articleName) && article.articleName != "" {
                             self.seenArticles.insert(article.articleName)
-                            AllArticles.articles.append(article)
+                            AllArticles.articles?.append(article)
                         }
                         
-                        if AllArticles.articles.count >= 5 {
+                        if AllArticles.articles?.count ?? 0 >= 5 {
                             break
                         }
                     }
@@ -149,9 +151,9 @@ class ArticlesTableViewController: UITableViewController {
 extension UIImageView {
     
     func downloadImage(from url: String) {
-        if url.count == 0 {
-            return
-        }
+//        if url.count == 0 {
+//            return
+//        }
         
         let urlRequest = URLRequest(url: URL(string: url)!)
         

@@ -10,6 +10,6 @@ import Foundation
 
 struct AllArticles {
 
-    static var articles: [Article] = []
+    static var articles: [Article]? = []
     
 }
