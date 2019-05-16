@@ -292,6 +292,52 @@
             </objects>
             <point key="canvasLocation" x="1638" y="424"/>
         </scene>
+        <!--Root View Controller-->
+        <scene sceneID="Axf-sp-dDf">
+            <objects>
+                <tableViewController id="qL7-zr-esB" customClass="SectionViewController" customModule="News_In_Chunks" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nzQ-52-cuV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="hDY-al-SAm">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hDY-al-SAm" id="FGE-WO-G9e">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qL7-zr-esB" id="QNu-5P-Dkg"/>
+                            <outlet property="delegate" destination="qL7-zr-esB" id="pHa-lv-e2p"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="Rpp-NP-R0X"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SKF-fb-HDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1045" y="1120"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qSu-qx-I4N">
+            <objects>
+                <navigationController id="5TO-gy-haH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="more" id="0ig-eP-0yd"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WCm-GJ-pBS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="qL7-zr-esB" kind="relationship" relationship="rootViewController" id="DT9-Q2-bhG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qfK-rg-5Ic" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="281" y="1089"/>
+        </scene>
         <!--News in Chunks-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -306,6 +352,7 @@
                     <connections>
                         <segue destination="zpt-oy-4g7" kind="relationship" relationship="viewControllers" id="bFt-J2-Oeh"/>
                         <segue destination="kT1-ss-s84" kind="relationship" relationship="viewControllers" id="3sL-4R-msX"/>
+                        <segue destination="5TO-gy-haH" kind="relationship" relationship="viewControllers" id="6Ir-Ag-sLp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

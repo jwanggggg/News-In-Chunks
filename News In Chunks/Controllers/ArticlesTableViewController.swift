@@ -70,8 +70,23 @@ class ArticlesTableViewController: UITableViewController {
     }
     
     func fetchArticles(){
-        let urlRequest = URLRequest(url: URL(string: "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+        print("Using: ")
+        print(Sections.sectionSelected)
         
+        var urlRequest = URLRequest(url: URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+        
+        switch (Sections.sectionSelected[0][0][1]) {
+            case 0:
+                urlRequest = URLRequest(url: URL(string: "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+                break
+            case 1:
+                urlRequest = URLRequest(url: URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+                break
+            default:
+                urlRequest = URLRequest(url:
+                    URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+                break
+        }
         
         let task = URLSession.shared.dataTask(with: urlRequest) { (data,response,error) in
             
@@ -88,12 +103,10 @@ class ArticlesTableViewController: UITableViewController {
                     // Record the articleName, and if it has been seen,
                     // don't append it to AllArticles.
                     
-                    if self.seenArticles.count >= articlesFromJson.count - 5 {
+                    if self.seenArticles.count >= articlesFromJson.count - 7 {
                         self.seenArticles.removeAll()
                     }
                     
-                    print(self.seenArticles.count)
-                    print(articlesFromJson.count)
                     
                     for articleFromJson in articlesFromJson {
                         var article = Article(articleName: "", articleDescription: "", thumbnailFileName: "", articleText: "", bookmarked: false)
@@ -109,7 +122,6 @@ class ArticlesTableViewController: UITableViewController {
                         if !self.seenArticles.contains(article.articleName) {
                             self.seenArticles.insert(article.articleName)
                             AllArticles.articles.append(article)
-                            print(article)
                         }
                         
                         if AllArticles.articles.count >= 5 {
@@ -137,8 +149,6 @@ class ArticlesTableViewController: UITableViewController {
 extension UIImageView {
     
     func downloadImage(from url: String) {
-        print("URL: " + url)
-        
         if url.count == 0 {
             return
         }
