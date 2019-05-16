@@ -16,14 +16,15 @@ class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var bookmarked: UIImageView!
     
     @IBAction func bookmark(_ sender: UIButton) {
-        MyNewsFeed.articles.append(article)
+        if (!MyNewsFeed.articles.contains(article)) {
+            MyNewsFeed.articles.append(article)
+        }
     }
     
     @IBAction func unBookmark(_ sender: UIButton) {
 //        if let index = MyNewsFeed.articles.firstIndex(where: {$0.articleName == article.articleName}) {
 //            MyNewsFeed.articles.remove(at: index)
 //        }
-        
         
     }
     

@@ -22,7 +22,7 @@ class MyNewsFeedTableViewController: UITableViewController {
         let article = MyNewsFeed.articles[indexPath.row]
         
         cell.article = article
-        cell.thumbnailImageView.downloadImage(from: (AllArticles.articles?[indexPath.item].thumbnailFileName)!)
+        cell.thumbnailImageView.downloadImage(from: (MyNewsFeed.articles[indexPath.item].thumbnailFileName))
         return cell
     }
     
