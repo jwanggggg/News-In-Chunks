@@ -9,7 +9,9 @@
 import UIKit
 
 class ArticlesTableViewController: UITableViewController {
-
+    
+    var seenArticles = Set<String>()
+    
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return AllArticles.articles.count
@@ -40,20 +42,35 @@ class ArticlesTableViewController: UITableViewController {
         articleVC.article = AllArticles.articles[index!]
     }
     
+    lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(requestData),
+                                 for: .valueChanged)
+        
+        return refreshControl
+    }()
+    
+    @objc
+    func requestData() {
+        fetchArticles()
+        let deadline = DispatchTime.now() + .milliseconds(700)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            self.refresher.endRefreshing()
+        }
+    }
+    
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
         // set gradient background
         tableView.backgroundView = UIImageView(image: UIImage(named: "ViewControllerBackground.png"))
         fetchArticles()
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .white
-        
-        tableView.refreshControl = refreshControl
+        tableView.refreshControl = refresher
     }
     
     func fetchArticles(){
-        let urlRequest = URLRequest(url: URL(string: "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
+        let urlRequest = URLRequest(url: URL(string: "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
         
         
         let task = URLSession.shared.dataTask(with: urlRequest) { (data,response,error) in
@@ -66,8 +83,18 @@ class ArticlesTableViewController: UITableViewController {
             AllArticles.articles = [Article]()
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : AnyObject]
-                                
+                
                 if let articlesFromJson = json["articles"] as? [[String : AnyObject]] {
+                    // Record the articleName, and if it has been seen,
+                    // don't append it to AllArticles.
+                    
+                    if self.seenArticles.count >= articlesFromJson.count - 5 {
+                        self.seenArticles.removeAll()
+                    }
+                    
+                    print(self.seenArticles.count)
+                    print(articlesFromJson.count)
+                    
                     for articleFromJson in articlesFromJson {
                         var article = Article(articleName: "", articleDescription: "", thumbnailFileName: "", articleText: "", bookmarked: false)
                         if let articleName = articleFromJson["title"] as? String, let author = articleFromJson["author"] as? String, let articleDescription = articleFromJson["description"] as? String, let thumbnailFileName = articleFromJson["urlToImage"] as? String,
@@ -78,8 +105,16 @@ class ArticlesTableViewController: UITableViewController {
                             article.thumbnailFileName = thumbnailFileName
                             article.articleText = articleText
                         }
-                        AllArticles.articles.append(article)
-                        print(article)
+                        // Record only if it has been seen
+                        if !self.seenArticles.contains(article.articleName) {
+                            self.seenArticles.insert(article.articleName)
+                            AllArticles.articles.append(article)
+                            print(article)
+                        }
+                        
+                        if AllArticles.articles.count >= 5 {
+                            break
+                        }
                     }
                 }
                 DispatchQueue.main.async {
