@@ -34,6 +34,15 @@ class SectionViewController: UITableViewController {
             cell.accessoryType = .none
         }
         
+        cell.textLabel?.font = UIFont(name:"Futura", size:45)
+
+//            [UIFont fontWithName: @"Futura Bold" size: 18.0 ];
+//        cell.textLabel?.adjustsFontSizeToFitWidth = true
+        cell.textLabel?.textAlignment = NSTextAlignment.center
+//        cell.textLabel?.increaseSize(5)
+//        cell.textLabel?.textColor = CGColor.whiteColor
+        
+        
         return cell
     }
     
@@ -61,7 +70,8 @@ class SectionViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // set gradient background
+        tableView.backgroundView = UIImageView(image: UIImage(named: "ViewControllerBackground.png"))
     }
     
 }
