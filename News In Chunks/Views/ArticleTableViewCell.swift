@@ -22,9 +22,10 @@ class ArticleTableViewCell: UITableViewCell {
     }
     
     @IBAction func unBookmark(_ sender: UIButton) {
-//        if let index = MyNewsFeed.articles.firstIndex(where: {$0.articleName == article.articleName}) {
-//            MyNewsFeed.articles.remove(at: index)
-//        }
+        if let index = MyNewsFeed.articles.firstIndex(where: {$0.articleName == article.articleName}) {
+            MyNewsFeed.articles.remove(at: index)
+//            DispatchQueue.main.async { self.tableView.reloadData() }
+        }
         
     }
     
