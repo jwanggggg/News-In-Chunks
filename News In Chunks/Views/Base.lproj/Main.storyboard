@@ -58,7 +58,7 @@
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6k-Hd-ZgS">
-                                            <rect key="frame" x="326" y="334" width="40" height="35"/>
+                                            <rect key="frame" x="334" y="315" width="40" height="35"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="bookmark-unselected"/>
                                             <connections>
@@ -253,7 +253,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAi-6H-wKv">
-                                            <rect key="frame" x="326" y="334" width="40" height="35"/>
+                                            <rect key="frame" x="334" y="315" width="40" height="35"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="bookmark-selected"/>
                                             <connections>
@@ -427,6 +427,6 @@
         <image name="my-news-feed-icon" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eA1-Af-e8F"/>
+        <segue reference="LKt-kD-fZq"/>
     </inferredMetricsTieBreakers>
 </document>

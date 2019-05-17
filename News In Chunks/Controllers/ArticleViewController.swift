@@ -24,7 +24,8 @@ class ArticleViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "ViewControllerBackground.png")!)
         
         // set article image
-        thumbnailImageView.image = UIImage(named: article.thumbnailFileName)
+//        thumbnailImageView.image = UIImage(named: article.thumbnailFileName)
+        thumbnailImageView.downloadImage(from: article.thumbnailFileName)
         thumbnailImageView.layer.cornerRadius = 14.0
         thumbnailImageView.layer.masksToBounds = true
         thumbnailImageView.layer.zPosition = 1
