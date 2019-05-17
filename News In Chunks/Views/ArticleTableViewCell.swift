@@ -13,20 +13,26 @@ class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var articleTitle: UILabel!
     @IBOutlet weak var articleDescription: UILabel!
-    @IBOutlet weak var bookmarked: UIImageView!
+    @IBOutlet weak var bookmarkSymbol: UIButton!
     
     @IBAction func bookmark(_ sender: UIButton) {
         if (!MyNewsFeed.articles.contains(article)) {
+//            article.bookmarked = true
             MyNewsFeed.articles.append(article)
+            bookmarkSymbol.isSelected = true
+        } else {
+            let index = MyNewsFeed.articles.firstIndex(of: article)!
+            MyNewsFeed.articles.remove(at: index)
+//            article.bookmarked = false
+            bookmarkSymbol.isSelected = false
         }
     }
     
     @IBAction func unBookmark(_ sender: UIButton) {
-        if let index = MyNewsFeed.articles.firstIndex(where: {$0.articleName == article.articleName}) {
-            MyNewsFeed.articles.remove(at: index)
-//            DispatchQueue.main.async { self.tableView.reloadData() }
-        }
-        
+//        if let index = MyNewsFeed.articles.firstIndex(where: {$0.articleName == article.articleName}) {
+//            MyNewsFeed.articles.remove(at: index)
+////            DispatchQueue.main.async { self.tableView.reloadData() }
+//        }
     }
     
     var article: Article! {
@@ -45,6 +51,5 @@ class ArticleTableViewCell: UITableViewCell {
         articleTitle.adjustsFontSizeToFitWidth = true
 
         articleDescription.text = article.articleDescription
-
     }
 }

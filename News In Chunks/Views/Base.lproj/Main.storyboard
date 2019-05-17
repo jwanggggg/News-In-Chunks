@@ -61,6 +61,7 @@
                                             <rect key="frame" x="334" y="315" width="40" height="35"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="bookmark-unselected"/>
+                                            <state key="selected" image="bookmark-selected"/>
                                             <connections>
                                                 <action selector="bookmark:" destination="Kfu-0K-LS9" eventType="touchUpInside" id="0P3-aY-6eJ"/>
                                                 <action selector="bookmark:" destination="BaG-gn-g3f" eventType="touchUpInside" id="zBr-JD-Y9j"/>
@@ -82,6 +83,7 @@
                                     <outlet property="ThumbnailImageView" destination="Ial-fA-k2c" id="5ww-4x-UIi"/>
                                     <outlet property="articleDescription" destination="yR2-4W-AOR" id="z1h-n7-P8u"/>
                                     <outlet property="articleTitle" destination="tVm-lc-pwa" id="JIw-0g-ehl"/>
+                                    <outlet property="bookmarkSymbol" destination="s6k-Hd-ZgS" id="s9c-Ig-rxV"/>
                                     <segue destination="MtU-iu-hBM" kind="show" identifier="viewArticle" id="eA1-Af-e8F"/>
                                 </connections>
                             </tableViewCell>
@@ -96,7 +98,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVV-cr-x6Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Kfu-0K-LS9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1638" y="-244"/>
+            <point key="canvasLocation" x="1637.68115942029" y="-244.41964285714283"/>
         </scene>
         <!--Article View Controller-->
         <scene sceneID="Yku-wr-W4D">
@@ -209,6 +211,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.24960803570000001" green="0.95686274770000002" blue="0.70180659280000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="V6p-bp-L2b">
+                            <rect key="frame" x="0.0" y="458" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="22"/>
+                            <state key="normal" title="CLEAR ALL">
+                                <color key="titleColor" red="0.35294117650000001" green="0.4941176471" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="clearAllButtonPressed:" destination="0MX-Jt-x18" eventType="touchUpInside" id="2eZ-NE-diy"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleCell" rowHeight="430" id="ucz-9c-vnY" customClass="ArticleTableViewCell" customModule="News_In_Chunks" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="430"/>
@@ -252,10 +265,11 @@
                                             <rect key="frame" x="331" y="336" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAi-6H-wKv">
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAi-6H-wKv">
                                             <rect key="frame" x="334" y="315" width="40" height="35"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="bookmark-selected"/>
+                                            <state key="normal" image="bookmark-unselected"/>
+                                            <state key="selected" image="bookmark-selected"/>
                                             <connections>
                                                 <action selector="unBookmark:" destination="ucz-9c-vnY" eventType="touchUpInside" id="fOQ-8j-cIz"/>
                                             </connections>
@@ -286,6 +300,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="NEWS IN CHUNKS" id="Vm1-j4-CHR"/>
+                    <connections>
+                        <outlet property="clearAllButton" destination="V6p-bp-L2b" id="lj5-Bu-5CE"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hXd-Mc-2nc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

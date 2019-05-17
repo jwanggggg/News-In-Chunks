@@ -12,6 +12,7 @@ class MyNewsFeedTableViewController: UITableViewController {
     // The second array represents another set of articles
     // TODO: create a func that passes an article from one ViewController's array to the other
     
+    @IBOutlet weak var clearAllButton: UIButton!
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MyNewsFeed.articles.count
@@ -24,6 +25,12 @@ class MyNewsFeedTableViewController: UITableViewController {
         cell.article = article
         cell.thumbnailImageView.downloadImage(from: (MyNewsFeed.articles[indexPath.item].thumbnailFileName))
         return cell
+    }
+    
+    @IBAction func clearAllButtonPressed(_ sender: Any) {
+        MyNewsFeed.articles.removeAll()
+        clearAllButton.isHidden = true
+        self.tableView.reloadData()
     }
     
     // MARK: - UITableViewDelegate
@@ -50,8 +57,13 @@ class MyNewsFeedTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("hello world")
+//        print("hello world")
         self.tableView.reloadData()
+        if MyNewsFeed.articles.count == 0 {
+            clearAllButton.isHidden = true
+        } else {
+            clearAllButton.isHidden = false
+        }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

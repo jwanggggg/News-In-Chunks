@@ -23,6 +23,7 @@ class ArticlesTableViewController: UITableViewController {
         
         cell.thumbnailImageView.downloadImage(from: (AllArticles.articles?[indexPath.item].thumbnailFileName)!)
         cell.article = article
+        cell.bookmarkSymbol.isSelected = false
         
         return cell
     }
@@ -69,6 +70,13 @@ class ArticlesTableViewController: UITableViewController {
         fetchArticles()
         
         tableView.refreshControl = refresher
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if MyNewsFeed.articles.count == 0 {
+            self.tableView.reloadData()
+        }
     }
     
     func fetchArticles() {
