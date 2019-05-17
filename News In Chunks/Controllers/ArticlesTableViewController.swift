@@ -17,6 +17,7 @@ class ArticlesTableViewController: UITableViewController {
         return AllArticles.articles?.count ?? 0
     }
     
+    // Setting cell datafields for article/selected
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
         let article = AllArticles.articles?[indexPath.row]
@@ -45,6 +46,7 @@ class ArticlesTableViewController: UITableViewController {
         articleVC.article = AllArticles.articles?[index!]
     }
     
+    // Refresher for pull to refresh
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .white
@@ -54,6 +56,7 @@ class ArticlesTableViewController: UITableViewController {
         return refreshControl
     }()
     
+    // Requesting data by fetching articles
     @objc
     func requestData() {
         fetchArticles()
@@ -63,7 +66,7 @@ class ArticlesTableViewController: UITableViewController {
         }
     }
     
-    // MARK: - viewDidLoad()
+    // MARK: - viewDidLoad(). Call fetch articles on first load
     override func viewDidLoad() {
         // set gradient background
         tableView.backgroundView = UIImageView(image: UIImage(named: "ViewControllerBackground.png"))
@@ -79,11 +82,13 @@ class ArticlesTableViewController: UITableViewController {
         }
     }
     
+    // Main function that will call the articles from the API via JSON
     func fetchArticles() {
 //        ["Technology", "Business", "Sports", "Entertainment", "Health", "Science"]
         
         var urlRequest = URLRequest(url: URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
         
+        // Switch the URL depending on which section is selected
         switch (Sections.sectionSelected[0][0][1]) {
             // Tech
             case 0:
@@ -108,6 +113,7 @@ class ArticlesTableViewController: UITableViewController {
                 urlRequest = URLRequest(url:
                     URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
                 break
+            // Science
             default:
                 urlRequest = URLRequest(url:
                     URL(string:"https://newsapi.org/v2/top-headlines?country=us&category=science&apiKey=9d9eeff96c6f4f4989f1e892f700857a")!)
@@ -122,6 +128,7 @@ class ArticlesTableViewController: UITableViewController {
             }
             
             AllArticles.articles = [Article]()
+            // Deserialize the JSON and add the datafields to an Article object
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as! [String : AnyObject]
                 
@@ -149,6 +156,7 @@ class ArticlesTableViewController: UITableViewController {
                             AllArticles.articles?.append(article)
                         }
                         
+                        // End at 5 articles per refresh
                         if AllArticles.articles?.count ?? 0 >= 5 {
                             break
                         }
@@ -171,6 +179,7 @@ class ArticlesTableViewController: UITableViewController {
     
 }
 
+// Extension for downloading images via String URL
 extension UIImageView {
     
     func downloadImage(from url: String) {
