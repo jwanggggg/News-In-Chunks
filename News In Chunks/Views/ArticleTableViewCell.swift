@@ -15,24 +15,22 @@ class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var articleDescription: UILabel!
     @IBOutlet weak var bookmarkSymbol: UIButton!
     
+    // bookmark and unbookmark in ArticlesTableViewController
     @IBAction func bookmark(_ sender: UIButton) {
         if (!MyNewsFeed.articles.contains(article)) {
-//            article.bookmarked = true
             MyNewsFeed.articles.append(article)
             bookmarkSymbol.isSelected = true
         } else {
             let index = MyNewsFeed.articles.firstIndex(of: article)!
             MyNewsFeed.articles.remove(at: index)
-//            article.bookmarked = false
             bookmarkSymbol.isSelected = false
         }
     }
     
+    // disable deslecting bookmark in MyNewsFeed
     @IBAction func unBookmark(_ sender: UIButton) {
-//        if let index = MyNewsFeed.articles.firstIndex(where: {$0.articleName == article.articleName}) {
-//            MyNewsFeed.articles.remove(at: index)
-////            DispatchQueue.main.async { self.tableView.reloadData() }
-//        }
+        // empty body because we don't want it to deselect within MyNewsFeed,
+        // we only want users to delete using the 'Clear All' button
     }
     
     var article: Article! {

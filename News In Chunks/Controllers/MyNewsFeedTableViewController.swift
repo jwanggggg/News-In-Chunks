@@ -13,11 +13,13 @@ class MyNewsFeedTableViewController: UITableViewController {
     // TODO: create a func that passes an article from one ViewController's array to the other
     
     @IBOutlet weak var clearAllButton: UIButton!
+    
     // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MyNewsFeed.articles.count
     }
     
+    // get appropriate data for tableView cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
         let article = MyNewsFeed.articles[indexPath.row]
@@ -27,6 +29,7 @@ class MyNewsFeedTableViewController: UITableViewController {
         return cell
     }
     
+    // clear all articles from MyNewsFeed
     @IBAction func clearAllButtonPressed(_ sender: Any) {
         MyNewsFeed.articles.removeAll()
         clearAllButton.isHidden = true
@@ -56,8 +59,9 @@ class MyNewsFeedTableViewController: UITableViewController {
         tableView.backgroundView = UIImageView(image: UIImage(named: "ViewControllerBackground.png"))
     }
     
+    // MARK: - viewWillAppear()
     override func viewWillAppear(_ animated: Bool) {
-//        print("hello world")
+        // hide 'Clear All' button if there are no articles
         self.tableView.reloadData()
         if MyNewsFeed.articles.count == 0 {
             clearAllButton.isHidden = true
@@ -66,19 +70,19 @@ class MyNewsFeedTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == UITableViewCell.EditingStyle.delete {
-            print("Deleted")
-            MyNewsFeed.articles.remove(at: indexPath.row)
-            self.tableView.beginUpdates()
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.tableView.endUpdates()
-        }
-    }
+//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//        if editingStyle == UITableViewCell.EditingStyle.delete {
+//            print("Deleted")
+//            MyNewsFeed.articles.remove(at: indexPath.row)
+//            self.tableView.beginUpdates()
+//            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+//            self.tableView.endUpdates()
+//        }
+//    }
     
 }

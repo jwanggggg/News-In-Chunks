@@ -17,6 +17,7 @@ class ArticlesTableViewController: UITableViewController {
         return AllArticles.articles?.count ?? 0
     }
     
+    // get appropriate data for tableView cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath) as! ArticleTableViewCell
         let article = AllArticles.articles?[indexPath.row]
@@ -45,6 +46,8 @@ class ArticlesTableViewController: UITableViewController {
         articleVC.article = AllArticles.articles?[index!]
     }
     
+    // MARK: - UIRefreshControl
+    // pull to refresh
     lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .white
@@ -53,6 +56,7 @@ class ArticlesTableViewController: UITableViewController {
         
         return refreshControl
     }()
+    
     
     @objc
     func requestData() {
@@ -73,7 +77,10 @@ class ArticlesTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    // MARK - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
+        // if 'Clear All' was pressed in my news feed, reload
+        // tableView to unselect all heart buttons
         if MyNewsFeed.articles.count == 0 {
             self.tableView.reloadData()
         }

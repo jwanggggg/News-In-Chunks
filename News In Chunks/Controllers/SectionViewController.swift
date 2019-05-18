@@ -34,13 +34,9 @@ class SectionViewController: UITableViewController {
             cell.accessoryType = .none
         }
         
+        // set textlabel font and alignment
         cell.textLabel?.font = UIFont(name:"Futura", size:45)
-
-//            [UIFont fontWithName: @"Futura Bold" size: 18.0 ];
-//        cell.textLabel?.adjustsFontSizeToFitWidth = true
         cell.textLabel?.textAlignment = NSTextAlignment.center
-//        cell.textLabel?.increaseSize(5)
-//        cell.textLabel?.textColor = CGColor.whiteColor
         
         
         return cell
