@@ -59,7 +59,7 @@ class MyNewsFeedTableViewController: UITableViewController {
         tableView.backgroundView = UIImageView(image: UIImage(named: "ViewControllerBackground.png"))
     }
     
-    // MARK: - viewWillAppear()
+    // Set clear all button visible depending on number of articles
     override func viewWillAppear(_ animated: Bool) {
         // hide 'Clear All' button if there are no articles
         self.tableView.reloadData()
@@ -67,6 +67,20 @@ class MyNewsFeedTableViewController: UITableViewController {
             clearAllButton.isHidden = true
         } else {
             clearAllButton.isHidden = false
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            MyNewsFeed.articles.remove(at: indexPath.row)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.endUpdates()
         }
     }
     

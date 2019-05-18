@@ -8,6 +8,7 @@
 
 import UIKit
 
+// ViewController for each individual Article
 class ArticleViewController: UIViewController {    
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var articleTitle: UILabel!
